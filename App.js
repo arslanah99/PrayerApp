@@ -1,12 +1,38 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
 
-export default function App() {
+export default class App extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isLoading: true,
+      dataSource: null,
+    }
+  }
+
+  getData = () => {
+    return fetch('http://api.aladhan.com/v1/hijriCalendarByCity')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        alert(responseJson)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
+  componentDidMount() {
+    this.getData();
+  }
+
+  render(){
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+      <Text>O=pen up App.js to start working on your  app!</Text>
+    </View> 
   );
+}
 }
 
 const styles = StyleSheet.create({
